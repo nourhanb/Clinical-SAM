@@ -19,7 +19,7 @@ Across public 3D CT tumor benchmarks, Clinical-SAM achieves strong Dice and boun
 
 This repository provides:
 
-- **Phase I:** PPO-based training of a prompting policy (implicit agent) in a custom Gymnasium environment with RepViT-SAM, using dense reward signals from ground-truth masks.
+- **Phase I:** PPO-based training of a prompting policy in a custom Gymnasium environment with RepViT-SAM, using dense reward signals from ground-truth masks.
 - **Phase II:** Online adaptation from simulated physician feedback (accept if Dice ≥ τ, else reject), with terminal rewards, a replay buffer, and KL regularization toward the Phase I policy.
 - Medical 3D CT support (e.g., Medical Segmentation Decathlon), YAML configs, and evaluation scripts.
 
@@ -140,7 +140,7 @@ Pre-trained checkpoints (if available) can be downloaded from the project’s [H
 - `train_sam_align_ppo.py` — Phase I PPO training.
 - `phase2_ppo_online.py` — Phase II online PPO (prequential, binary feedback).
 - `evaluate.py` — Evaluation script for any saved agent.
-- `models/` — Agent definitions (e.g. implicit agent used in both phases).
+- `models/` — Agent definitions (e.g. agent used in both phases).
 - `custom_gym_implns/` — Gymnasium environment (RepViT-SAM, medical dataset).
 - `phase2/configs/` — Phase II YAML configs; `phase2/utils/` — GAE, Dice, KL, episode runner.
 
