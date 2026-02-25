@@ -1,0 +1,24 @@
+--find-links https://download.pytorch.org/whl/torch_stable.html
+cprint==1.2.2
+yacs==0.1.8
+pyfakefs==5.6.0
+Pillow-SIMD==9.0.0.post1
+numpy==1.24.4
+pytorch-lightning==2.2.5
+torch==1.13.1+cu117
+torchmetrics==1.4.0.post0
+mlflow==2.14.3
+gymnasium==0.29.1
+opencv-python-headless==4.10.0.84
+moviepy==1.0.3
+tyro==0.5.10
+tensorboard==2.11.2
+tensorboard-data-server==0.6.1
+tensorboard-plugin-wit==1.8.1
+timm==0.5.4
+ftfy==6.2.3
+regex==2024.11.6
+pycocotools==2.0.7
+pytest==8.3.5
+nibabel==5.2.0
+scikit-image==0.21.0

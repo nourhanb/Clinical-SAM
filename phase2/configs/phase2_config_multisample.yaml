@@ -1,0 +1,57 @@
+# Phase 2 Test-Time Adaptation Configuration - MULTI-SAMPLE BATCHING
+# Key idea: Adapt on multiple test images simultaneously for stability
+
+# Paths
+phase1_checkpoint: "weights/latest.pth"
+agent_cfg_path: "configs/agents/implicit_agent.yaml"
+env_cfg_path: "configs/envs/repvit_sam_medical_test.yaml"  # TEST split
+output_dir: "phase2/results_multisample"
+
+# Environment
+env_id: "SamSegEnv-v0"
+device: "cuda"
+
+# Evaluation dataset
+num_test_cases: 26  # All test cases
+batch_size: 1
+
+# Multi-sample batching (NEW!)
+samples_per_batch: 5  # Adapt on 5 images simultaneously for stability
+trajectories_per_sample: 2  # Collect 2 trajectories per image (total: 5×2=10)
+
+# Physician feedback simulation
+acceptance_threshold: 0.95  # Dice >= 0.95 → Accept
+# Terminal reward: r = (2*accept - 1) - eta*K
+prompt_penalty: 0.02
+
+# Buffer (FIFO)
+buffer_size: 64
+buffer_sample_size: null
+
+# Adaptation settings
+max_adaptation_steps: 50  # Maximum adaptation iterations per batch (matched with aggressive)
+adapt_on_rejection: True
+early_stop_patience: 10  # Stop after 10 consecutive degradations (matched with aggressive)
+
+# PPO-specific parameters
+ppo:
+  learning_rate: 1e-4  # Aggressive learning (matched with aggressive)
+  clip_epsilon: 0.2
+  value_loss_coef: 0.5
+  entropy_coef: 0.01
+  gamma: 0.99
+  gae_lambda: 0.95
+  kl_coef: 0.1  # Moderate KL penalty (matched with aggressive)
+  max_grad_norm: 10.0
+  update_epochs: 8  # 8 epochs per batch update (matched with aggressive)
+
+# Logging
+save_predictions: False
+save_results: True
+log_interval: 1  # Print every batch
+verbose: True
+
+# Random seed
+seed: 42
+
+

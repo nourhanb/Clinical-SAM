@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# Virtual environment
+venv/
+.venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Model weights (too large for GitHub)
+*.pth
+*.pt
+*.ckpt
+*.pkl
+medsam_vit_b.pth
+
+# Large data and image directories
+images/
+
+# Training logs and experiment tracking
+logs/
+mlruns/
+nohup.out
+outputs/
+
+# Phase 2 large result files (keep CSVs, exclude saved agents)
+phase2/results_online/phase2_online_agent.pth
+phase2/results_multisample/phase2_multisample_agent.pth
+
+# Misc
+*.log
+*.DS_Store
+.env

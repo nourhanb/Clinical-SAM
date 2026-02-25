@@ -1,0 +1,4 @@
+type: "implicit"
+debug_mode: False
+dropout_rate: 0.15  # Light dropout for moderate regularization (was 0.3, too aggressive)
+

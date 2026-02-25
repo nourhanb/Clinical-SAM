@@ -1,0 +1,31 @@
+img_shape: [375, 500, 3] # HxWxC
+embedding_shape: [256, 64, 64] # CxHxW
+mask_shape: [256, 256] # HxW
+render_frame_shape: [320, 426] # HxW
+max_steps: 5
+# img_patch_size: 16
+num_patches: 32  # along one axis
+penalize_for_wrong_input: False
+use_dice_score: True
+render_mode: 'rgb_array'
+# Terminal acceptability threshold: r_T += (2*y_T - 1), y_T = 1[Dice(M_T,G) >= tau_acc]
+tau_acc: 0.5
+
+# For medical datasets, typically we have one category (e.g., 'colon')
+# The category name is mainly for compatibility with the existing code
+target_categories : ['colon']
+dataset_config:
+  type: 'medical'
+  data_dir: 'images/Task10_Colon'
+  split_pkl_path: 'images/Task10_Colon/split.pkl'
+  split_idx: 0  # Use the first split (0-indexed)
+  data_type: 'train'  # 'train', 'val', or 'test'
+  seed: 42
+  max_instances: 5
+  slice_axis: 2  # 0=sagittal, 1=coronal, 2=axial (default: axial)
+  min_slice_area: 0.01  # Minimum area fraction for valid slices
+  cache_volumes: false  # Set to false to save memory (loads volumes on-demand)
+  max_cache_size: 2  # Max volumes to cache if caching is enabled
+
+sam_ckpt_fp: 'RepViT/sam/weights/repvit_sam.pt'
+

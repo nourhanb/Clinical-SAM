@@ -1,0 +1,47 @@
+# Phase 2 Online Learning (Prequential Test-Then-Learn)
+# Paper: tau_acc=0.75, K_max=11, B=3, buffer=30 trajectories, eta=0.02, KL weight=0.1
+
+phase1_checkpoint: "weights/latest.pth"
+agent_cfg_path: "configs/agents/implicit_agent.yaml"
+env_cfg_path: "configs/envs/repvit_sam_medical_test.yaml"
+output_dir: "phase2/results_online"
+
+env_id: "SamSegEnv-v0"
+device: "cuda"
+num_test_cases: 26
+seed: 42
+
+# B = 3: update pi_theta every 3 cases
+samples_per_batch: 3
+update_epochs: 1
+# K_max = 11: max prompts per case
+max_steps: 11
+
+# y = 1[Dice(M_n, G_n) >= tau_acc], tau_acc = 0.75
+acceptance_threshold: 0.75
+accept_report_thresholds: [0.70, 0.80, 0.90]
+
+# Terminal reward: r = (2*accept - 1) - eta*K_used; eta = 0.02
+prompt_penalty: 0.02
+
+# Online buffer of 30 recent trajectories
+buffer_size: 30
+buffer_drop_easy_first: false
+buffer_sample_size: null   # null = use all in buffer
+
+# PPO (KL regularizer weight = 0.1 toward Phase I policy)
+ppo:
+  learning_rate: 1e-4
+  clip_epsilon: 0.2
+  value_loss_coef: 0.5
+  entropy_coef: 0.01
+  gamma: 0.99
+  gae_lambda: 0.95
+  kl_coef: 0.1   # KL penalty toward Phase I policy
+  max_grad_norm: 10.0
+
+save_results: true
+verbose: true
+
+# Optional: re-evaluate last batch after update and log separately (debug only)
+debug_post_update_eval: false
