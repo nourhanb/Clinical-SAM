@@ -53,8 +53,8 @@ All commands below assume you are in the project root and use the project’s vi
 Train the RL policy with PPO using dense ground-truth supervision. Checkpoints are written to the path specified in your run (e.g. `weights/latest.pth` or under `logs/`).
 
 ```bash
-venv/bin/python train_sam_align_ppo.py \
-  --agent_cfg_path configs/agents/implicit_agent.yaml \
+venv/bin/python train_sam_agent_ppo.py \
+  --agent_cfg_path configs/agents/ppo_agent.yaml \
   --env_cfg_path configs/envs/repvit_sam_medical_improved.yaml \
   --num_envs 16 \
   --total_timesteps 5000000 \
@@ -64,8 +64,8 @@ venv/bin/python train_sam_align_ppo.py \
 Optional: run in the background and log stdout/stderr:
 
 ```bash
-nohup venv/bin/python train_sam_align_ppo.py \
-  --agent_cfg_path configs/agents/implicit_agent.yaml \
+nohup venv/bin/python train_sam_agent_ppo.py \
+  --agent_cfg_path configs/agents/ppo_agent.yaml \
   --env_cfg_path configs/envs/repvit_sam_medical_improved.yaml \
   --num_envs 16 \
   --total_timesteps 5000000 \
@@ -82,53 +82,8 @@ venv/bin/python phase2_ppo_online.py \
   --config phase2/configs/phase2_config_online.yaml
 ```
 
-Override the Phase I checkpoint or output directory if needed (edit the YAML or add CLI options). Results and the adapted agent are written under `phase2/results_online/` (CSVs and `phase2_online_agent.pth`).
-
-Background run with logging:
-
-```bash
-nohup venv/bin/python phase2_ppo_online.py \
-  --config phase2/configs/phase2_config_online.yaml \
-  > phase2/results_online/phase2_online_run.log 2>&1 &
-tail -f phase2/results_online/phase2_online_run.log
-```
-
-### Evaluation (Phase I or Phase II agent)
-
-Evaluate a trained agent (e.g. Phase I checkpoint or Phase II saved agent) on the **training** split:
-
-```bash
-venv/bin/python evaluate.py \
-  --checkpoint_path weights/latest.pth \
-  --agent_cfg_path configs/agents/implicit_agent.yaml \
-  --env_cfg_path configs/envs/repvit_sam_medical_improved.yaml \
-  --num_episodes 89
-```
-
-Evaluate on the **test** split:
-
-```bash
-venv/bin/python evaluate.py \
-  --checkpoint_path weights/latest.pth \
-  --agent_cfg_path configs/agents/implicit_agent.yaml \
-  --env_cfg_path configs/envs/repvit_sam_medical_test.yaml \
-  --num_episodes 26
-```
-
-Use `phase2/results_online/phase2_online_agent.pth` as `--checkpoint_path` to evaluate the Phase II–adapted policy (the eval script expects the same agent interface and state_dict).
 
 ---
-
-## Configuration Summary
-
-| Stage    | Config / Script | Main output |
-|----------|------------------|-------------|
-| Phase I  | `train_sam_align_ppo.py` + `configs/agents/implicit_agent.yaml`, `configs/envs/repvit_sam_medical_improved.yaml` | `weights/latest.pth` (or `logs/.../checkpoints/`) |
-| Phase II | `phase2_ppo_online.py` + `phase2/configs/phase2_config_online.yaml` | `phase2/results_online/phase2_online_agent.pth`, CSVs |
-| Eval     | `evaluate.py` + env/agent configs | Console metrics (Dice, IoU, etc.) |
-
----
-
 ## Checkpoints
 
 Pre-trained checkpoints (if available) can be downloaded from the project’s [Hugging Face Space](https://huggingface.co/shantanusingh10/AlignSAM-unofficial). Place them in `weights/` and set `phase1_checkpoint` in Phase II config or use `--checkpoint_path` in evaluation accordingly.
@@ -137,12 +92,4 @@ Pre-trained checkpoints (if available) can be downloaded from the project’s [H
 
 ## Project Structure (high level)
 
-- `train_sam_align_ppo.py` — Phase I PPO training.
-- `phase2_ppo_online.py` — Phase II online PPO (prequential, binary feedback).
-- `evaluate.py` — Evaluation script for any saved agent.
-- `models/` — Agent definitions (e.g. agent used in both phases).
-- `custom_gym_implns/` — Gymnasium environment (RepViT-SAM, medical dataset).
-- `phase2/configs/` — Phase II YAML configs; `phase2/utils/` — GAE, Dice, KL, episode runner.
-
----
-
+To be added ... 
