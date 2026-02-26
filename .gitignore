@@ -16,6 +16,11 @@ venv/
 env/
 ENV/
 
+# Submodules / third-party libraries (do not commit)
+CLIP_Surgery/
+RepViT/
+custom_gym_implns/
+
 # Jupyter
 .ipynb_checkpoints/
 *.ipynb
@@ -42,9 +47,9 @@ mlruns/
 nohup.out
 outputs/
 
-# Phase 2 large result files (keep CSVs, exclude saved agents)
-phase2/results_online/phase2_online_agent.pth
-phase2/results_multisample/phase2_multisample_agent.pth
+# Phase 2 results (exclude entirely)
+phase2/results_online/
+phase2/results_multisample/
 
 # Misc
 *.log
