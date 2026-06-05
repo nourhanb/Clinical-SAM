@@ -1,17 +1,17 @@
 # Clinical-SAM
 
-**Agentic, one-bit physician-in-the-loop prompting for clinical 3D CT segmentation with a frozen SAM.**
+**Agentic Test-Time Adaptation of SAM via Physician-in-the-Loop  for Clinical Tumor Segmentation.**
 
 ---
 
 ## Abstract
 
-SAM-style foundation models can segment from prompts, but in clinical 3D CT they remain brittle: small prompt errors trigger large boundary mistakes, forcing repeated corrective interactions before a mask is clinically acceptable. We propose **Clinical-SAM**, a two-stage, agentic framework that improves the clinical acceptability of a frozen SAM while requiring only a **binary judgment** (accept/reject)—no corrective clicks.
+Interactive foundation models such as SAM struggle to generalize across clinical deployment sites. Among existing adaptation strategies, test-time adaptation (TTA) is the most promising, yet current TTA methods trade one problem for another: removing the physician eliminates clinical grounding, while retaining the physician reintroduces a costly annotation burden.  In this work, we propose Clinical-SAM, a two-phase agentic physician-in-the-loop TTA framework that teaches a frozen SAM what a  physician accepts - directly, continuously, and at zero annotation cost. In Phase~I (pre-deployment), a self-prompting agent trained via reinforcement learning generates prompts autonomously, eliminating per-case expert input at inference. In Phase~II (deployment), the agent policy is refined online by the one signal physicians already produce at zero marginal cost: a binary accept or reject on each proposed mask. As binary feedback accumulates across deployed cases, the agent learns the physician's acceptability standard, converging toward a policy that produces clinically acceptable masks with progressively fewer binary interactions. We evaluate Clinical-SAM on six oncological benchmarks spanning CT (colon, pancreas, liver, kidney) and PET (head $\&$ neck, lung) tumor segmentation. Clinical-SAM achieves state-of-the-art performance on all six datasets, outperforming fine-tuning, interactive, TTA, and online-learning baselines, while requiring a mean of only 3.3 binary judgments per case. 
 
 - **Phase I (pre-deployment):** Train a self-prompting RL policy with dense ground-truth supervision to learn a robust geometric prompting prior, without consuming physician time.
 - **Phase II (deployment):** Refine the policy online from terminal accept/reject feedback under a prequential protocol, shaping a latent acceptability prior and trading off mask quality against interaction cost.
 
-Across public 3D CT tumor benchmarks, Clinical-SAM achieves strong Dice and boundary-sensitive NSD versus automated, interactive, and online-learning baselines, with consistently cleaner contours under minimal physician burden.
+Across six public PET and CT tumor benchmarks, Clinical-SAM achieves strong Dice and boundary-sensitive NSD versus automated, interactive, and online-learning baselines, with consistently cleaner contours under minimal physician burden.
 
 ---
 
