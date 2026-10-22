@@ -19,7 +19,6 @@ ENV/
 # Submodules / third-party libraries (do not commit)
 CLIP_Surgery/
 RepViT/
-custom_gym_implns/
 
 # Jupyter
 .ipynb_checkpoints/

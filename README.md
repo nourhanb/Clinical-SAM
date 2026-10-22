@@ -23,7 +23,7 @@ This repository provides:
 **Requirements:** Python 3.8+, CUDA for GPU training.
 
 ```bash
-git clone --recurse-submodules <repository-url>
+git clone https://github.com/nourhanb/Clinical-SAM.git
 cd Clinical-SAM
 ```
 
@@ -32,6 +32,8 @@ Create and activate a virtual environment, then install dependencies from the pr
 ```bash
 bash install_dependencies.sh
 ```
+
+This installs the requirements, clones [RepViT](https://github.com/THU-MIG/RepViT) (the RepViT-SAM backbone), and downloads the RepViT-SAM weights to `RepViT/sam/weights/repvit_sam.pt`.
 
 Place your medical dataset (e.g., Task10_Colon) under `images/` and provide train/val/test splits (e.g., `split.pkl`). See `configs/envs/repvit_sam_medical_*.yaml` for `data_dir`, `split_pkl_path`, and related options.
 
@@ -79,7 +81,13 @@ venv/bin/python phase2_ppo_online.py \
 ---
 ## Checkpoints
 
-Pre-trained checkpoints (if available) can be downloaded from the project’s [Hugging Face Space](https://huggingface.co/shantanusingh10/AlignSAM-unofficial). Place them in `weights/` and set `phase1_checkpoint` in Phase II config or use `--checkpoint_path` in evaluation accordingly.
+Place the Phase I checkpoint in `weights/` and set `phase1_checkpoint` in the Phase II config (or use `--checkpoint_path` in evaluation) accordingly.
+
+---
+
+## Acknowledgements
+
+This code builds on the MIT-licensed AlignSAM-CVPR2024-Unofficial implementation by Shantanu Singh (see `LICENSE`).
 
 ---
 
