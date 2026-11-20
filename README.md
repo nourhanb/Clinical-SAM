@@ -1,4 +1,4 @@
-# Clinical-SAM: Agentic Test-Time Adaptation of SAM via Physician-in-the-Loop for Clinical Tumor Segmentation
+# IEEE TMI | Nov. 2026 | Clinical-SAM: Agentic Test-Time Adaptation of SAM via Physician-in-the-Loop for Clinical Tumor Segmentation
 
 ---
 
